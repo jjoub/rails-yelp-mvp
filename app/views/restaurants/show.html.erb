@@ -1,0 +1,28 @@
+<h1><%= @restaurant.name %></h1>
+
+<p>reviews of the restaurant :</p>
+<% @restaurant.reviews.each do |review| %>
+  <ul>
+    <li>
+      <p>
+        <%= review.content %> --- <%= review.rating %>
+        <%= link_to restaurant_review_path(@restaurant, review), method: :delete do %>
+          <i class="fa fa-trash-alt"></i>
+        <% end %>
+      </p>
+    </li>
+  </ul>
+<% end %>
+<%= link_to "Add a review !", new_restaurant_review_path(@restaurant) %>
+
+<div class="container">
+  <%= simple_form_for [@restaurant, @review] do |f| %>
+    <%= f.input :content %>
+    <%= f.input :rating %>
+    <%= f.submit "add a review", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<hr>
+
+<%= link_to "back to the list", restaurants_path %>
